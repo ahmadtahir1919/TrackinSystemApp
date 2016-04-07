@@ -192,9 +192,9 @@ public class MainActivity extends AppCompatActivity
                         location.getLongitude()));
 
                 //  mp.draggable(true);
-                mp.icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-                mMap.addMarker(mp);
+              //  mp.icon(BitmapDescriptorFactory
+               //         .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+               // mMap.addMarker(mp);
 
                 // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 Toast.makeText(MainActivity.this, "Location : " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_LONG).show();
@@ -330,25 +330,11 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
             }
-            try {
-                //ArrayList list = new ArrayList<>();
-                //TODO: remove previus markers
-                if (marker != null) {
-                    mMap.clear();
-                    Toast.makeText(getApplicationContext(), "Remove", Toast.LENGTH_LONG).show();
-
-                }
-                for (LatLng object : latLngList)
-
-                    marker = mMap.addMarker(new MarkerOptions().title("User Name").position(object).icon(BitmapDescriptorFactory.fromResource(R.drawable.female4)));
-
-                System.out.println(marker.getPosition() + "  Marker position.......");
-            } catch (Exception e) {
-                Toast.makeText(MainActivity.this, "Error ", Toast.LENGTH_LONG).show();
-                // mMap.clear();
-            }
+            AddPointer();
 
         }
+
+
 
     }
 
@@ -432,6 +418,25 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+    }
+    private void AddPointer() {
+        try {
+            //ArrayList list = new ArrayList<>();
+            //TODO: remove previus markers
+            if (marker != null) {
+                mMap.clear();
+                Toast.makeText(getApplicationContext(), "Remove", Toast.LENGTH_LONG).show();
+
+            }
+            for (LatLng object : latLngList)
+
+                marker = mMap.addMarker(new MarkerOptions().title("User Name").position(object).icon(BitmapDescriptorFactory.fromResource(R.drawable.female4)));
+
+            System.out.println(marker.getPosition() + "  Marker position.......");
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Error ", Toast.LENGTH_LONG).show();
+            // mMap.clear();
+        }
     }
 
     @Override
