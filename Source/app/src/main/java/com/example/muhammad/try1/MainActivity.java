@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity
     // static final LatLng HAMBURG = new LatLng(74.3229122, 31.5003193);
     private static MainActivity instance;
     private ArrayList<LatLng> latLngList;
+    //private ArrayList uniqueids;
+    private ArrayList uniqueids = new ArrayList<>(5);
+
     private static final int ERROR_DIALOG_REQUEST = 9001;
     GoogleMap mMap;
     int FirstTimeMapIniciate = 0;
@@ -192,9 +195,9 @@ public class MainActivity extends AppCompatActivity
                         location.getLongitude()));
 
                 //  mp.draggable(true);
-              //  mp.icon(BitmapDescriptorFactory
-               //         .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-               // mMap.addMarker(mp);
+                //  mp.icon(BitmapDescriptorFactory
+                //         .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                // mMap.addMarker(mp);
 
                 // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 Toast.makeText(MainActivity.this, "Location : " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_LONG).show();
@@ -295,15 +298,16 @@ public class MainActivity extends AppCompatActivity
 
                     }*/
                     for (int i = 0; i < jsonarray.length(); i++) {
-                       // ModelClass s = LoganSquare.parse(jsonarray.getJSONObject(i).toString(), ModelClass.class);
+                        // ModelClass s = LoganSquare.parse(jsonarray.getJSONObject(i).toString(), ModelClass.class);
                         ModelClass modelClass = new Gson().fromJson(jsonarray.getJSONObject(i).toString(), ModelClass.class);
 
 
                         LatLng latLng = new LatLng(Double.parseDouble(modelClass.getLatitude()), Double.parseDouble(modelClass.getLongitude())); // Use your server's methods
                         latLngList.add(latLng);
+                        uniqueids.add(modelClass.getUniqueId().toString());
+                       // System.out.println(uniqueids + "   UNIQUE ID'S ARE FLKMFLKFN");
 
                     }
-
 
                     return true;
 
@@ -333,7 +337,6 @@ public class MainActivity extends AppCompatActivity
             AddPointer();
 
         }
-
 
 
     }
@@ -419,6 +422,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
     private void AddPointer() {
         try {
             //ArrayList list = new ArrayList<>();
@@ -428,10 +432,35 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Remove", Toast.LENGTH_LONG).show();
 
             }
-            for (LatLng object : latLngList)
+int i=0;
+            for (LatLng object : latLngList){
 
-                marker = mMap.addMarker(new MarkerOptions().title("User Name").position(object).icon(BitmapDescriptorFactory.fromResource(R.drawable.female4)));
+                marker = mMap.addMarker(new MarkerOptions().title(uniqueids.get(i).toString()).position(object));//.icon(BitmapDescriptorFactory.fromResource(R.drawable.female4)));
+                if (i == 0)
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.female4));
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                if (i == 1)
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                if (i == 2)
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                if (i == 3)
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                if (i == 4)
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                if (i == 5)
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                if (i == 6)
+                    marker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
+                i++;
+            }
             System.out.println(marker.getPosition() + "  Marker position.......");
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Error ", Toast.LENGTH_LONG).show();
