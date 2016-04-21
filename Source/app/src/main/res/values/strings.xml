@@ -9,4 +9,7 @@
     <string name="terrain">Terrain</string>
     <string name="hybrid">Hybrid</string>
     <string name="none">None</string>
-    <string name="current_location">Current Location</string></resources>
+    <string name="current_location">Current Location</string>
+    <string name="error_network">error network</string></resources>
+
+
